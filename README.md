@@ -1,1 +1,3 @@
-# codingQuiz
+# Javascript quiz!
+
+When ready, click the start button to begin the quiz. There are only 4 questions, each with 4 responses. Only 1 response is correct. You have 60 seconds to answer these questions as quickly as possible but be careful as incorrect answers will reduce the time remaining thus lowering your score! You can see your past 3 scores at anytime even after leaving the browser and returning later.

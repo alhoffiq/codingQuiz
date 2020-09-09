@@ -44,12 +44,14 @@ let questions = [ // Array of questions, question 1 is hard loaded from the html
         answer3: "{Curly}",
         answer4: "(Parentheses)",
     }
-]
+];
+
+displayScores();
 
 let timer = setInterval(function () { // Timer function
     timeLeft--
     timeLeftEl.text("Time left: " + timeLeft);
-    if (timeLeft <= 0) { // User ran out of time
+    if (timeLeft <= 0 && window.location.pathname === quiz.html) { // I did what everyone said not to do and linked 1 js file to 2 html files and I had to find this weird fix because if you sat on the start page for 60 seconds you would fail a quiz that hadn't even shown up yet lol.
         clearInterval(timer);
         endQuiz();
     }
@@ -115,7 +117,25 @@ function nextQuestion(i) { // Displays the question object's properties using th
 }
 
 function endQuiz() {
+    let last3 = window.localStorage.getItem("last3");
     let initials = prompt("You earned a score of " + timeLeft + "!\nPlease enter your initials for the leaderboards");
+    if (last3 === "1") { // Stores the last 3 quiz scores
+        window.localStorage.setItem("initials1", initials);
+        window.localStorage.setItem("score1", timeLeft);
+        window.localStorage.setItem("last3", 2);        
+    }
+    else if (last3 === "2") {
+        window.localStorage.setItem("initials2", initials);
+        window.localStorage.setItem("score2", timeLeft);
+        window.localStorage.setItem("last3", 3);        
+    }
+    else if (last3 === "3") {
+        window.localStorage.setItem("initials3", initials);
+        window.localStorage.setItem("score3", timeLeft);
+        window.localStorage.setItem("last3", 1);        
+    }
+
+    window.location.href = "index.html";
 }
 
 function doneYet() {
@@ -146,4 +166,19 @@ function wrongClick() {
     timeLeft = timeLeft - 5;
     currentQuestion++;
     nextQuestion(currentQuestion); 
+}
+
+function displayScores() {
+    if (window.localStorage.getItem("score1") === null) { // Initialize local storage
+        window.localStorage.setItem("initials1", "abc");
+        window.localStorage.setItem("initials2", "def");
+        window.localStorage.setItem("initials3", "ghi");
+        window.localStorage.setItem("score1", "60");
+        window.localStorage.setItem("score2", "55");
+        window.localStorage.setItem("score3", "50");
+        window.localStorage.setItem("last3", "1");
+    }
+    $("#score1").text(window.localStorage.getItem("initials1") + " " + "|" + " " + window.localStorage.getItem("score1"));
+    $("#score2").text(window.localStorage.getItem("initials2") + " " + "|" + " " + window.localStorage.getItem("score2"));
+    $("#score3").text(window.localStorage.getItem("initials3") + " " + "|" + " " + window.localStorage.getItem("score3"));
 }
