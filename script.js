@@ -46,17 +46,18 @@ let questions = [ // Array of questions, question 1 is hard loaded from the html
     }
 ]
 
-let timer = setInterval(function() { // Timer function
+let timer = setInterval(function () { // Timer function
     timeLeft--
     timeLeftEl.text("Time left: " + timeLeft);
-    if (timeLeft <= 0) {
+    if (timeLeft <= 0) { // User ran out of time
         clearInterval(timer);
         endQuiz();
     }
-},1000)
+}, 1000)
 
 let currentQuestion = 0;
-answerBtn1.on("click", function() {
+
+answerBtn1.on("click", function () { // Not DRY by any means...
     if (document.querySelector(".answer1").getAttribute("data-correct") === "y") { // Check if this button corresponds to the correct answer
         alert("You are correct!");
         currentQuestion++;
@@ -68,9 +69,12 @@ answerBtn1.on("click", function() {
         currentQuestion++;
         nextQuestion(currentQuestion);
     }
+    answerChanger(currentQuestion); // Change the data tag defining which button is the correct answer
+    doneYet(); 
 })
-answerBtn2.on("click", function() {
-    if (document.querySelector(".answer1").getAttribute("data-correct") === "y") { // Check if this button corresponds to the correct answer
+
+answerBtn2.on("click", function () {
+    if (document.querySelector(".answer2").getAttribute("data-correct") === "y") {
         alert("You are correct!");
         currentQuestion++;
         nextQuestion(currentQuestion);
@@ -81,12 +85,15 @@ answerBtn2.on("click", function() {
         currentQuestion++;
         nextQuestion(currentQuestion);
     }
+    answerChanger(currentQuestion);
+    doneYet(); 
 })
-answerBtn3.on("click", function() {
-    if (document.querySelector(".answer1").getAttribute("data-correct") === "y") { // Check if this button corresponds to the correct answer
+
+answerBtn3.on("click", function () {
+    if (document.querySelector(".answer3").getAttribute("data-correct") === "y") { 
         alert("You are correct!");
         currentQuestion++;
-        nextQuestion(currentQuestion);
+        nextQuestion(currentQuestion); 
     }
     else {
         alert("Sorry, not quite. You lose 5 seconds :(");
@@ -94,9 +101,12 @@ answerBtn3.on("click", function() {
         currentQuestion++;
         nextQuestion(currentQuestion);
     }
+    answerChanger(currentQuestion);
+    doneYet(); 
 })
-answerBtn4.on("click", function() {
-    if (document.querySelector(".answer1").getAttribute("data-correct") === "y") { // Check if this button corresponds to the correct answer
+
+answerBtn4.on("click", function () {
+    if (document.querySelector(".answer4").getAttribute("data-correct") === "y") { 
         alert("You are correct!");
         currentQuestion++;
         nextQuestion(currentQuestion);
@@ -105,20 +115,42 @@ answerBtn4.on("click", function() {
         alert("Sorry, not quite. You lose 5 seconds :(");
         timeLeft = timeLeft - 5;
         currentQuestion++;
-        nextQuestion(currentQuestion);
+        nextQuestion(currentQuestion); 
     }
+    answerChanger(currentQuestion);
+    doneYet(); 
 })
 
 
 function nextQuestion(i) { // Displays the question object's properties using the html elements
+    if (i < questions.length) {
     questionNumber.text(questions[i].number);
     question.text(questions[i].question);
     answerEl1.text(questions[i].answer1);
     answerEl2.text(questions[i].answer2);
     answerEl3.text(questions[i].answer3);
     answerEl4.text(questions[i].answer4);
+    }
+
 }
 
 function endQuiz() {
     let initials = prompt("You earned a score of " + timeLeft + "!\nPlease enter your initials for the leaderboards");
+}
+
+function doneYet() {
+    if (currentQuestion >= questions.length) { // User completed quiz before time was up
+        endQuiz();
+    }
+}
+
+function answerChanger(currentQ) { // What a probably very sloppy way of changing the data attribute that's defining the correct answer button after each question but hey it works
+    if (currentQ === 1) {
+        document.querySelector(".answer2").setAttribute("data-correct", "n");
+        document.querySelector(".answer1").setAttribute("data-correct", "y");
+    }
+    else if (currentQ === 2) {
+        document.querySelector(".answer1").setAttribute("data-correct", "n");
+        document.querySelector(".answer3").setAttribute("data-correct", "y");
+    }
 }
