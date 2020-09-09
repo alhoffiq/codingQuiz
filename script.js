@@ -8,10 +8,10 @@ let answerEl4 = $(".answer4");
 let answerBtn1 = $(".answerBtn1");
 let answerBtn2 = $(".answerBtn2");
 let answerBtn3 = $(".answerBtn3");
-let answerBtn4 = $(".answerBtn4");
+let answerBtn4 = $(".answerBtn4"); // Variables for just about every html element that's going to change just so it looks at least somewhat neater down there
 let timeLeft = 60;
 
-let questions = [ // Array of questions, question 1 is hard loaded from the html already
+let questions = [ // Array of questions, question 1 is hard loaded from the html already so this first one is only here for reference and complete-ness
     question1 = {
         number: "Question #1",
         question: "Javascript is known as what part of the web?",
@@ -57,17 +57,12 @@ let timer = setInterval(function () { // Timer function
 
 let currentQuestion = 0;
 
-answerBtn1.on("click", function () { // Not DRY by any means...
+answerBtn1.on("click", function () {
     if (document.querySelector(".answer1").getAttribute("data-correct") === "y") { // Check if this button corresponds to the correct answer
-        alert("You are correct!");
-        currentQuestion++;
-        nextQuestion(currentQuestion);
+        correctClick();
     }
     else {
-        alert("Sorry, not quite. You lose 5 seconds :(");
-        timeLeft = timeLeft - 5;
-        currentQuestion++;
-        nextQuestion(currentQuestion);
+        wrongClick();
     }
     answerChanger(currentQuestion); // Change the data tag defining which button is the correct answer
     doneYet(); 
@@ -75,15 +70,10 @@ answerBtn1.on("click", function () { // Not DRY by any means...
 
 answerBtn2.on("click", function () {
     if (document.querySelector(".answer2").getAttribute("data-correct") === "y") {
-        alert("You are correct!");
-        currentQuestion++;
-        nextQuestion(currentQuestion);
+        correctClick();
     }
     else {
-        alert("Sorry, not quite. You lose 5 seconds :(");
-        timeLeft = timeLeft - 5;
-        currentQuestion++;
-        nextQuestion(currentQuestion);
+        wrongClick();
     }
     answerChanger(currentQuestion);
     doneYet(); 
@@ -91,15 +81,10 @@ answerBtn2.on("click", function () {
 
 answerBtn3.on("click", function () {
     if (document.querySelector(".answer3").getAttribute("data-correct") === "y") { 
-        alert("You are correct!");
-        currentQuestion++;
-        nextQuestion(currentQuestion); 
+        correctClick();
     }
     else {
-        alert("Sorry, not quite. You lose 5 seconds :(");
-        timeLeft = timeLeft - 5;
-        currentQuestion++;
-        nextQuestion(currentQuestion);
+        wrongClick();
     }
     answerChanger(currentQuestion);
     doneYet(); 
@@ -107,15 +92,10 @@ answerBtn3.on("click", function () {
 
 answerBtn4.on("click", function () {
     if (document.querySelector(".answer4").getAttribute("data-correct") === "y") { 
-        alert("You are correct!");
-        currentQuestion++;
-        nextQuestion(currentQuestion);
+        correctClick();
     }
     else {
-        alert("Sorry, not quite. You lose 5 seconds :(");
-        timeLeft = timeLeft - 5;
-        currentQuestion++;
-        nextQuestion(currentQuestion); 
+        wrongClick();
     }
     answerChanger(currentQuestion);
     doneYet(); 
@@ -144,13 +124,26 @@ function doneYet() {
     }
 }
 
-function answerChanger(currentQ) { // What a probably very sloppy way of changing the data attribute that's defining the correct answer button after each question but hey it works
+function answerChanger(currentQ) { // What a probably very sloppy way of changing the data attribute that's defining the correct answer button after each question but hey it works...basically my moto for an excuse at this point with all this spaghetti.
     if (currentQ === 1) {
         document.querySelector(".answer2").setAttribute("data-correct", "n");
         document.querySelector(".answer1").setAttribute("data-correct", "y");
-    }
+    } // Not dynamic at all either, just hard coding in each attribute that needs to change
     else if (currentQ === 2) {
         document.querySelector(".answer1").setAttribute("data-correct", "n");
         document.querySelector(".answer3").setAttribute("data-correct", "y");
     }
+}
+
+function correctClick() {
+    alert("You are correct!");
+    currentQuestion++;
+    nextQuestion(currentQuestion);
+}
+
+function wrongClick() {
+    alert("Sorry, not quite. You lose 5 seconds :(");
+    timeLeft = timeLeft - 5;
+    currentQuestion++;
+    nextQuestion(currentQuestion); 
 }
