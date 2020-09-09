@@ -12,28 +12,31 @@
 
 <body>
     <section class="container">
-        <div class="row items-align-center">
-            <div class="col-md text-center">
+        <div class="row">
+            <div class="col-md-10 text-center">
                 <h1 id="questionNumber"></h1>
             </div>
+            <div class="col-md-2">
+                <p id="timeLeft">Time left: 60</p>
+            </div>
         </div>
-        <div class="row items-align-center">
+        <div class="row">
             <div class="col-md text-center">
                 <h3 id="question"></h3>
             </div>
         </div>
-        <div class="row items-align-center">
-            <div class="col-md-3">
-                <button type="button" class="btn btn-primary"><span class=answer1></span></button>
+        <div class="row">
+            <div class="col-md-3 text-center">
+                <button type="button" class="btn btn-primary"><span class="answer1" data-correct=""></span></button>
             </div>
-            <div class="col-md-3">
-                <button type="button" class="btn btn-primary"><span class=answer2></span></button>
+            <div class="col-md-3 text-center">
+                <button type="button" class="btn btn-primary"><span class="answer2" data-correct=""></span></button>
             </div>
-            <div class="col-md-3">
-                <button type="button" class="btn btn-primary"><span class=answer3></span></button>
+            <div class="col-md-3 text-center">
+                <button type="button" class="btn btn-primary"><span class="answer3" data-correct=""></span></button>
             </div>
-            <div class="col-md-3">
-                <button type="button" class="btn btn-primary"><span class=answer4></span></button>
+            <div class="col-md-3 text-center">
+                <button type="button" class="btn btn-primary"><span class="answer4" data-correct=""></span></button>
             </div>
         </div>
     </section>
