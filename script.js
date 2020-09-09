@@ -1,13 +1,17 @@
 let questionNumber = $("#questionNumber");
 let timeLeftEl = $("#timeLeft");
 let question = $("#question");
-let answerBtn1 = $(".answer1");
-let answerBtn2 = $(".answer2");
-let answerBtn3 = $(".answer3");
-let answerBtn4 = $(".answer4");
-let timeLeft = 5;
+let answerEl1 = $(".answer1");
+let answerEl2 = $(".answer2");
+let answerEl3 = $(".answer3");
+let answerEl4 = $(".answer4");
+let answerBtn1 = $(".answerBtn1");
+let answerBtn2 = $(".answerBtn2");
+let answerBtn3 = $(".answerBtn3");
+let answerBtn4 = $(".answerBtn4");
+let timeLeft = 60;
 
-let questions = [
+let questions = [ // Array of questions, question 1 is hard loaded from the html already
     question1 = {
         number: "Question #1",
         question: "Javascript is known as what part of the web?",
@@ -42,37 +46,78 @@ let questions = [
     }
 ]
 
-let timer = setInterval(function() {
+let timer = setInterval(function() { // Timer function
     timeLeft--
     timeLeftEl.text("Time left: " + timeLeft);
-    if (timeLeft === 0) {
+    if (timeLeft <= 0) {
         clearInterval(timer);
         endQuiz();
     }
 },1000)
 
-for (let i = 0; i < questions.length; i++) {
-    nextQuestion(i);    
-}
+let currentQuestion = 0;
+answerBtn1.on("click", function() {
+    if (document.querySelector(".answer1").getAttribute("data-correct") === "y") { // Check if this button corresponds to the correct answer
+        alert("You are correct!");
+        currentQuestion++;
+        nextQuestion(currentQuestion);
+    }
+    else {
+        alert("Sorry, not quite. You lose 5 seconds :(");
+        timeLeft = timeLeft - 5;
+        currentQuestion++;
+        nextQuestion(currentQuestion);
+    }
+})
+answerBtn2.on("click", function() {
+    if (document.querySelector(".answer1").getAttribute("data-correct") === "y") { // Check if this button corresponds to the correct answer
+        alert("You are correct!");
+        currentQuestion++;
+        nextQuestion(currentQuestion);
+    }
+    else {
+        alert("Sorry, not quite. You lose 5 seconds :(");
+        timeLeft = timeLeft - 5;
+        currentQuestion++;
+        nextQuestion(currentQuestion);
+    }
+})
+answerBtn3.on("click", function() {
+    if (document.querySelector(".answer1").getAttribute("data-correct") === "y") { // Check if this button corresponds to the correct answer
+        alert("You are correct!");
+        currentQuestion++;
+        nextQuestion(currentQuestion);
+    }
+    else {
+        alert("Sorry, not quite. You lose 5 seconds :(");
+        timeLeft = timeLeft - 5;
+        currentQuestion++;
+        nextQuestion(currentQuestion);
+    }
+})
+answerBtn4.on("click", function() {
+    if (document.querySelector(".answer1").getAttribute("data-correct") === "y") { // Check if this button corresponds to the correct answer
+        alert("You are correct!");
+        currentQuestion++;
+        nextQuestion(currentQuestion);
+    }
+    else {
+        alert("Sorry, not quite. You lose 5 seconds :(");
+        timeLeft = timeLeft - 5;
+        currentQuestion++;
+        nextQuestion(currentQuestion);
+    }
+})
 
-function nextQuestion(i) {
+
+function nextQuestion(i) { // Displays the question object's properties using the html elements
     questionNumber.text(questions[i].number);
     question.text(questions[i].question);
-    answerBtn1.text(questions[i].answer1);
-    answerBtn2.text(questions[i].answer2);
-    answerBtn3.text(questions[i].answer3);
-    answerBtn4.text(questions[i].answer4);
+    answerEl1.text(questions[i].answer1);
+    answerEl2.text(questions[i].answer2);
+    answerEl3.text(questions[i].answer3);
+    answerEl4.text(questions[i].answer4);
 }
-
-
-
-
-
-
-
-
-
-
 
 function endQuiz() {
     let initials = prompt("You earned a score of " + timeLeft + "!\nPlease enter your initials for the leaderboards");
