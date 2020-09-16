@@ -51,7 +51,7 @@ displayScores();
 let timer = setInterval(function () { // Timer function
     timeLeft--
     timeLeftEl.text("Time left: " + timeLeft);
-    if (timeLeft <= 0 && window.location.pathname === quiz.html) { // I did what everyone said not to do and linked 1 js file to 2 html files and I had to find this weird fix because if you sat on the start page for 60 seconds you would fail a quiz that hadn't even shown up yet lol.
+    if (timeLeft <= 0) { // I did what everyone said not to do and linked 1 js file to 2 html files and I had to find this weird fix because if you sat on the start page for 60 seconds you would fail a quiz that hadn't even shown up yet lol.
         clearInterval(timer);
         endQuiz();
     }
